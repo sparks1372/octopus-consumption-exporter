@@ -41,7 +41,7 @@ def _get_query_date_range(connection, series):
         to_date = datetime.now()
         return from_date.isoformat(), to_date.isoformat()
 
-def _pull_electricity_consumption(connection, account_no, api_key):
+def _pull_electricity_consumption(connection, api_key):
     from_date, to_date = _get_query_date_range(connection, "electricity")
 
     e_mpan = os.getenv('ELECTRICITY_MPAN')
@@ -58,7 +58,7 @@ def _pull_electricity_consumption(connection, account_no, api_key):
     click.echo(f"Loaded elctricity data between {from_date} to {to_date}. {len(e_consumption)} results found.")
     store_series(connection, 'electricity', e_consumption, conversion_factor=None)
 
-def _pull_gas_consumption(connection, account_no, api_key):
+def _pull_gas_consumption(connection, api_key):
     from_date, to_date = _get_query_date_range(connection, "gas")
 
     volume_correction_factor = os.getenv('VOLUME_CORRECTION_FACTOR')
@@ -130,15 +130,11 @@ def monitor():
     api_key = os.getenv('OCTOPUS_API_KEY')
     if not api_key:
         raise click.ClickException('No Octopus API key set.')
-    
-    account_no = os.getenv('OCTOPUS_ACCOUNT_NO')
-    if not account_no:
-        raise click.ClickException('No Octopus Account number set.')
 
     # if for some reason this script is still running after a year, we'll stop after 365 days
     for i in range(0,365):
-        _pull_electricity_consumption(influx, account_no, api_key)
-        _pull_gas_consumption(influx, account_no, api_key)
+        _pull_electricity_consumption(influx, api_key)
+        _pull_gas_consumption(influx, api_key)
         _sleep_until_2am() 
         
 if __name__ == '__main__':

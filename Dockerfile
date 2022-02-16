@@ -7,6 +7,6 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY octopus_energy_monitor.py ./
+COPY consumption_exporter.py ./
 
-ENTRYPOINT [ "python", "./octopus_energy_monitor.py" ]
+ENTRYPOINT [ "python", "./consumption_exporter.py" ]
