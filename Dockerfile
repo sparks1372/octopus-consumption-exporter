@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.10.1-alpine3.15
 
 LABEL maintainer="Keval Patel <kevalpatel2106@gmail.com>"
 
