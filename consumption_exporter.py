@@ -39,6 +39,8 @@ def _get_query_date_range(connection, series):
         connection.query(f' DROP SERIES FROM {series}')
         from_date = parser.parse(os.getenv("SERIES_START_DATE")) if os.getenv("SERIES_START_DATE") else date.today() - timedelta(days=1)
         to_date = datetime.now()
+        if from_date > to_date:
+            raise click.ClickException('Start date cannot be in the future.')
         return from_date.isoformat(), to_date.isoformat()
 
 def _pull_electricity_consumption(connection, api_key):
@@ -131,8 +133,7 @@ def monitor():
     if not api_key:
         raise click.ClickException('No Octopus API key set.')
 
-    # if for some reason this script is still running after a year, we'll stop after 365 days
-    for i in range(0,365):
+    while True:
         _pull_electricity_consumption(influx, api_key)
         _pull_gas_consumption(influx, api_key)
         _sleep_until_2am() 

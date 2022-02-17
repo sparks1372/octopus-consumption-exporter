@@ -1,4 +1,6 @@
-# octopus-consumption-exporter
+# Octopus Energy Consumption Exporter:
+
+![Docker Build](https://github.com/kevalpatel2106/octopus-consumption-exporter/workflows/build/badge.svg) ![GitHub release](https://img.shields.io/github/v/release/kevalpatel2106/octopus-consumption-exporter)
 
 Python script to pull energy consumption data from Octopus energy into InfluxDB. This can be used with Graphana dashboard to monitor the enegy usage.
 
@@ -9,6 +11,8 @@ Python script to pull energy consumption data from Octopus energy into InfluxDB.
 | `INFLUX_DB_NAME` | Name of the database in influx DB where the data will be stored. | ❌ | energy |
 | `INFLUX_DB_HOST` | Host address of the InfluxDB | ❌ | influxdb | 
 | `INFLUX_DB_PORT` | Port on which influx DB is running | ❌ | 8086 |
+| `INFLUX_DB_USER` | InfluxDB user if authentication set. | ❌ | "" |
+| `INFLUX_DB_PASSWORD` | InfluxDB password if authentication set. | ❌ | "" |
 | `OCTOPUS_API_KEY` | API key for accessing Octopus Energy APIs. You can generate this key from [here](https://octopus.energy/dashboard/developer/). | ✔️ | Requeired |
 | `ELECTRICITY_MPAN` | MPAN for your electricity meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Requeired |
 | `ELECTRICITY_SERIAL_NO` | Serial number of your electricity meter. You will find it on your electricity meter. | ✔️ | Requeired |
@@ -32,12 +36,11 @@ python3 consumption_exporter.py
 You can initate the docker container using docker compose in following way. 
 
 ```
-version: "3.1"
+version: "3.7"
 
 services:  
     octopusenergy-exporter:
-        tty: true
-        stdin_open: true
+        container_name: octopusenergy-exporter
         image: ghcr.io/kevalpatel2106/octopus-consumption-exporter:latest
         restart: unless-stopped
         environment:
