@@ -26,7 +26,7 @@ def retrieve_paginated_data(api_key, url, from_date, to_date, page=None):
     return results
 
 def _get_query_date_range(connection, series):
-    result = connection.query(f'SELECT time, consumption FROM {series} ORDER BY ASC LIMIT 1')
+    result = connection.query(f'SELECT time, consumption FROM {series} ORDER BY DESC LIMIT 1')
     if 'series' in result.raw and 'values' in result.raw['series'][0] and len(result.raw['series'][0]['values']) > 0:
         latest_time = result.raw['series'][0]['values'][0][0]
         click.echo(f"Latest entry for series {series} is on {latest_time}.")
