@@ -16,6 +16,8 @@ Python script to pull energy consumption data from Octopus energy into InfluxDB.
 | `OCTOPUS_API_KEY` | API key for accessing Octopus Energy APIs. You can generate this key from [here](https://octopus.energy/dashboard/developer/). | ✔️ | Requeired |
 | `ELECTRICITY_MPAN` | MPAN for your electricity meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Requeired |
 | `ELECTRICITY_SERIAL_NO` | Serial number of your electricity meter. You will find it on your electricity meter. | ✔️ | Requeired |
+| `EXPORT_MPAN` | MPAN for your electricity export meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. Export download will be skipped if not provided. | ❌ | None |
+| `EXPORT_SERIAL_NO` | Serial number of your electricity export meter. You will find it on your electricity meter. | ✔️ (if EXPORT_MPAN is configured) | Required |
 | `GAS_MPAN` | MPAN for your gas meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Requeired |
 | `GAS_SERIAL_NO` | Serial number of your gas meter. You will find it on your gas meter. | ✔️ | Requeired |
 | `VOLUME_CORRECTION_FACTOR` | Factor to convert m3 into kWh. You will find this on your last gas bill from Octopus. | ✔️ | Requeired |
