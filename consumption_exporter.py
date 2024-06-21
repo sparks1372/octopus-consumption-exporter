@@ -31,7 +31,7 @@ def _get_query_date_range(connection, series):
         latest_time = result.raw['series'][0]['values'][0][0]
         click.echo(f"Latest entry for series {series} is on {latest_time}.")
         from_date = parser.parse(latest_time)
-        to_date = from_date + timedelta(days=1)
+        to_date = datetime.now()
         return from_date.isoformat(), to_date.isoformat()
     else:
         # DB empty (i.e. running first time) or something wrong with series. Drop series if data already there.
