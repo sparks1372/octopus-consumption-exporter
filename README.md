@@ -13,14 +13,14 @@ Python script to pull energy consumption data from Octopus energy into InfluxDB.
 | `INFLUX_DB_PORT` | Port on which influx DB is running | ❌ | 8086 |
 | `INFLUX_DB_USER` | InfluxDB user if authentication set. | ❌ | "" |
 | `INFLUX_DB_PASSWORD` | InfluxDB password if authentication set. | ❌ | "" |
-| `OCTOPUS_API_KEY` | API key for accessing Octopus Energy APIs. You can generate this key from [here](https://octopus.energy/dashboard/developer/). | ✔️ | Requeired |
-| `ELECTRICITY_MPAN` | MPAN for your electricity meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Requeired |
-| `ELECTRICITY_SERIAL_NO` | Serial number of your electricity meter. You will find it on your electricity meter. | ✔️ | Requeired |
+| `OCTOPUS_API_KEY` | API key for accessing Octopus Energy APIs. You can generate this key from [here](https://octopus.energy/dashboard/developer/). | ✔️ | Required |
+| `ELECTRICITY_MPAN` | MPAN for your electricity meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Required |
+| `ELECTRICITY_SERIAL_NO` | Serial number of your electricity meter. You will find it on your electricity meter. | ✔️ | Required |
 | `EXPORT_MPAN` | MPAN for your electricity export meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. Export download will be skipped if not provided. | ❌ | None |
 | `EXPORT_SERIAL_NO` | Serial number of your electricity export meter. You will find it on your electricity meter. | ✔️ (if EXPORT_MPAN is configured) | Required |
-| `GAS_MPAN` | MPAN for your gas meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Requeired |
-| `GAS_SERIAL_NO` | Serial number of your gas meter. You will find it on your gas meter. | ✔️ | Requeired |
-| `VOLUME_CORRECTION_FACTOR` | Factor to convert m3 into kWh. You will find this on your last gas bill from Octopus. | ✔️ | Requeired |
+| `GAS_MPAN` | MPAN for your gas meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it. | ✔️ | Required |
+| `GAS_SERIAL_NO` | Serial number of your gas meter. You will find it on your gas meter. | ✔️ | Required |
+| `VOLUME_CORRECTION_FACTOR` | Factor to convert m3 into kWh. You will find this on your last gas bill from Octopus. | ✔️ | Required |
 | `SERIES_START_DATE` | Inital date from which the script will load the data. This date should be the date in the past. | ❌ | Yesterday's date |
 
 ## Usage:
