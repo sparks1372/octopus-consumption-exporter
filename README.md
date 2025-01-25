@@ -1,6 +1,6 @@
 # Octopus Energy Consumption Exporter:
 
-![Docker Build](https://github.com/kevalpatel2106/octopus-consumption-exporter/workflows/build/badge.svg) ![GitHub release](https://img.shields.io/github/v/release/kevalpatel2106/octopus-consumption-exporter)
+[![build](https://github.com/sparks1372/octopus-consumption-exporter/actions/workflows/build.yml/badge.svg)](https://github.com/sparks1372/octopus-consumption-exporter/actions/workflows/build.yml) ![GitHub release](https://img.shields.io/github/v/release/kevalpatel2106/octopus-consumption-exporter)
 
 Python script to pull energy consumption data from Octopus energy into InfluxDB. This can be used with Graphana dashboard to monitor the enegy usage.
 
