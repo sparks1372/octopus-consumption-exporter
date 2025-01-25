@@ -13,6 +13,7 @@ def retrieve_paginated_data(api_key, url, from_date, to_date, page=None):
         'period_from': from_date,
         'period_to': to_date,
     }
+    #This
     if page:
         args['page'] = page
     response = requests.get(url, params=args, auth=(api_key, ''))
