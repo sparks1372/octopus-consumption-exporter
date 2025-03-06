@@ -3,8 +3,7 @@
 ![Docker Build](https://github.com/sparks1372/octopus-consumption-exporter/workflows/build/badge.svg) ![GitHub release](https://img.shields.io/github/v/release/sparks1372/octopus-consumption-exporter)
 
 Python script to pull energy consumption data from Octopus energy into InfluxDB. This can be used with Grafana dashboard
-to monitor the energy usage. This has been forked
-from [Keval Patel](https://github.com/kevalpatel2106/octopus-consumption-exporter) who did the vast majority of the work
+to monitor the energy usage. This has been forked from [Keval Patel](https://github.com/kevalpatel2106/octopus-consumption-exporter) who did the vast majority of the work
 but appears to be focusing on other priorities which has made changes a bit difficult to get merged.
 
 ### Environment variables:
@@ -12,21 +11,28 @@ but appears to be focusing on other priorities which has made changes a bit diff
 These can either be set directly as environment variables passed to the docker container or python module in a `.env`
 file by setting the `ENV_FILE` environment variable.
 
-| Name                       | Note                                                                                                                                                                | Required | Default value    | 
-|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|------------------|
-| `INFLUX_DB_NAME`           | Name of the database in influx DB where the data will be stored.                                                                                                    | ❌        | energy           |
-| `INFLUX_DB_HOST`           | Host address of the InfluxDB                                                                                                                                        | ❌        | influxdb         | 
-| `INFLUX_DB_PORT`           | Port on which influx DB is running                                                                                                                                  | ❌        | 8086             |
-| `INFLUX_DB_USER`           | InfluxDB user if authentication set.                                                                                                                                | ❌        | octopus-exporter |
-| `INFLUX_DB_PASSWORD`       | InfluxDB password if authentication set.                                                                                                                            | ❌        | octopus-data     |
-| `OCTOPUS_API_KEY`          | API key for accessing Octopus Energy APIs. You can generate this key from [here](https://octopus.energy/dashboard/developer/).                                      | ✔️       | Requeired        |
-| `ELECTRICITY_MPAN`         | MPAN for your electricity meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it.                                  | ✔️       | Requeired        |
-| `ELECTRICITY_SERIAL_NO`    | Serial number of your electricity meter. You will find it on your electricity meter.                                                                                | ✔️       | Requeired        |
-| `GAS_MPAN`                 | MPAN for your gas meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it.                                          | ✔️       | Requeired        |
-| `GAS_SERIAL_NO`            | Serial number of your gas meter. You will find it on your gas meter.                                                                                                | ✔️       | Requeired        |
-| `VOLUME_CORRECTION_FACTOR` | Factor to convert m3 into kWh. You will find this on your last gas bill from Octopus.                                                                               | ✔️       | Requeired        |
-| `SERIES_START_DATE`        | Inital date from which the script will load the data. This date should be the date in the past.                                                                     | ❌        | Yesterday's date |
-| `ENV_FILE`                 | The path of the env file to use to resolve environment variables above. Any variables set in the file will take precedence over those set in the parent environment | ❌        | N/A              |
+| Name                       | Note                                                                                                                                                                | Required | Default value                 | 
+|----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|-------------------------------|
+| `INFLUX_DB_NAME`           | Name of the database in influx DB where the data will be stored.                                                                                                    | ❌        | energy                        |
+| `INFLUX_DB_HOST`           | Host address of the InfluxDB                                                                                                                                        | ❌        | influxdb                      | 
+| `INFLUX_DB_PORT`           | Port on which influx DB is running                                                                                                                                  | ❌        | 8086                          |
+| `INFLUX_DB_USER`           | InfluxDB user if authentication set.                                                                                                                                | ❌        | octopus-exporter              |
+| `INFLUX_DB_PASSWORD`       | InfluxDB password if authentication set.                                                                                                                            | ❌        | octopus-data                  |
+| `OCTOPUS_API_KEY`          | API key for accessing Octopus Energy APIs. You can generate this key from [here](https://octopus.energy/dashboard/developer/).                                      | ✔️       | Required                      |
+| `ELECTRICITY_MPAN`         | MPAN for your electricity meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it.                                  | ✔️       | Required                      |
+| `ELECTRICITY_SERIAL_NO`    | Serial number of your electricity meter. You will find it on your electricity meter.                                                                                | ✔️       | Required                      |
+| `EXPORT_MPAN`              | MPAN for your electricity export meter. It is easiest to find this in your Octopus online account.                                                                  | ❌️       |                       |
+| `EXPORT_SERIAL_NO`         | Serial number of your electricity export meter. This is likely the same as `ELECTRICITY_SERIAL_NO`                                                                  | ❌️       | Required if `EXPORT_MPAN` set |
+| `GAS_MPAN`                 | MPAN for your gas meter. [Here](https://www.comparethemarket.com/energy/content/mpan-number/) the guide on how to find it.                                          | ✔️       | Required                      |
+| `GAS_SERIAL_NO`            | Serial number of your gas meter. You will find it on your gas meter.                                                                                                | ✔️       | Required                      |
+| `VOLUME_CORRECTION_FACTOR` | Factor to convert m3 into kWh. You will find this on your last gas bill from Octopus.                                                                               | ✔️       | Required                      |
+| `SERIES_START_DATE`        | Inital date from which the script will load the data. This date should be the date in the past.                                                                     | ❌        | Yesterday's date              |
+| `ENV_FILE`                 | The path of the env file to use to resolve environment variables above. Any variables set in the file will take precedence over those set in the parent environment | ❌        | N/A                           |
+
+Your meter MPAN and Serial Numbers can be found on the Octopus account homepage near the bottom where it shows the tariffs you are currently on. 
+The Serial Number is labelled and the MPAN number is that in the top right corner of the respective box.
+
+If the `EXPORT_MPAN` is not set, the retrival of export data will be skipped.
 
 ## Usage:
 

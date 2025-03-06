@@ -80,6 +80,24 @@ def _pull_electricity_consumption(connection, api_key):
     store_series(connection, 'electricity', e_consumption, conversion_factor=None)
 
 
+def _pull_electricity_export(connection, api_key):
+    e_mpan = os.getenv('EXPORT_MPAN')
+    if not e_mpan:
+        click.echo("Export MPAN not configured")
+        return
+
+    e_serial = os.getenv('EXPORT_SERIAL_NO')
+    if not e_serial:
+        raise click.ClickException('No serial number set for export meter.')
+
+    e_url = f'https://api.octopus.energy/v1/electricity-meter-points/{e_mpan}/meters/{e_serial}/consumption/'
+
+    from_date, to_date = _get_query_date_range(connection, "electricity_export")
+    e_consumption = retrieve_paginated_data(api_key, e_url, from_date, to_date)
+    click.echo(f"Loaded electricity export data between {from_date} to {to_date}. {len(e_consumption)} results found.")
+    store_series(connection, 'electricity_export', e_consumption, conversion_factor=None)
+
+
 def _pull_gas_consumption(connection, api_key):
     from_date, to_date = _get_query_date_range(connection, "gas")
 
@@ -170,6 +188,7 @@ def monitor():
 
     while True:
         _pull_electricity_consumption(influx, api_key)
+        _pull_electricity_export(influx, api_key)
         _pull_gas_consumption(influx, api_key)
         _sleep_until_2am()
 
